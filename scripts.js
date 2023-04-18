@@ -7,9 +7,8 @@ const subtract = document.querySelector('[data-key="subtract"]')
 const add = document.querySelector('[data-key="add"]')
 
 const subtractHandler = () => {
-    console.log(NUMBER.value)
     const newValue = parseInt(number.value) - STEP_AMOUNT
-    number.value - newValue
+    number.value = newValue
     
     if (add.disabled === true) {
         add.disabled = false }
@@ -20,7 +19,7 @@ const subtractHandler = () => {
 
 const addHandler = ()=>  {
     const newValue = parseInt(number.value) + STEP_AMOUNT
-    number.value - newValue
+    number.value = newValue
 
     if (subtract.disabled === true) 
         {subtract.disabled = false}

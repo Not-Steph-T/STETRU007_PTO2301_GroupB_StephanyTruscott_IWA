@@ -23,6 +23,7 @@
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
+            text-align: center;
         }
 
         /*header*/
@@ -68,7 +69,7 @@
             background: none;
             width: 50%;
             border-width: 0;
-            color: var(--color-light-grey);
+            color: var(--color-white);
             font-size: 3rem;
             height: 10rem;
             border-bottom: 1px solid var(--color-light-grey);
@@ -77,7 +78,7 @@
         }
         
         .counter_button:disabled {
-           background: red; 
+          opacity: 0.2;
         }
 
         .counter_button:active {
