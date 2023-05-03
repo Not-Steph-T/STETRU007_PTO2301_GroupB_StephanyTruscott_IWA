@@ -7,34 +7,35 @@ const customer_location = ['RSA', 'NAM', 'NK'];
 let currency = ['R', '$'];
 let shipping = "0";
 
-const shoes = 300 * 1;
-const toys = 100 * 5;
-const shirts = 150;
-const batteries = 35 * 2;
-const pens = 5;
+shoes = 300 * 1;
+toys = 100 * 5;
+shirts = 150;
+batteries = 35 * 2;
+pens = 5;
 
 if (customer_location == 'RSA') { 
     shipping = 400;
     currency = 'R';
-    }
-    
-if (customer_location == 'NAM') { 
+
+    (customer_location == 'NAM') 
     shipping = 600; 
     currency = '$';
-} else {
-    shipping = 800;
-}
 
-if (customer_location == 'Nk') {
+    (customer_location == 'Nk') 
     console.log(banned_warning);
-}
+} 
 
-if (shoes + batteries + pens + shirts >= 'R1000' || '$60')
-	if ([customer_location == 'RSA', 'NAM'] && customers <2) {
+else {
+    shipping = 800;
+    currency = '$';
+} 
+
+if (shoes + batteries + pens + shirts >= 'R1000' || '$60') {
+	customer_location == 'RSA', 'NAM' && customers <2 
 	shipping = 0;
 }
 		    
-if (shipping == 0 && customers == 2) {
+if (shipping == 0 && customers !==1) {
     console.log(warning);
 }
 
