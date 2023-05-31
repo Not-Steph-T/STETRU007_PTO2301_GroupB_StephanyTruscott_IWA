@@ -7,14 +7,11 @@ const hourOfDay = 00;
 const minuteOfDay = 00;
 
 // Only change below this line
-if ((hourOfDay && minuteOfDay !== null) & (hourOfDay && minuteOfDay == '00')) {
 
-const taxAsDecimal = parseFloat(tax)
+const startingAfterTax = salary / 1.086;
+let balance = startingAfterTax - rent -transport - food;
+balance = balance.toFixed(2);
 
-const startingAfterTax = salary * '1' - taxAsDecimal;
+console.log(balance)
 
-var balance = startingAfterTax - transport - food - rent;
-}
-
-console.log(balance.toFixed())
-
+if ((hourOfDay && minuteOfDay !== null) & (hourOfDay && minuteOfDay == '00')) {}

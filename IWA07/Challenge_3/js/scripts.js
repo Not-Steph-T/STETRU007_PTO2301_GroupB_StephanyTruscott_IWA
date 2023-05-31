@@ -1,21 +1,26 @@
-const leoName = 'Leo'
-const leoSurname = 'Musvaire     '
+const leoName = 'Leo  '
+const leoSurname = 'Musvaire  '
 const leoBalance = '-9394'
 
-const sarahName = 'Sarah    '
-const sarahSurname = 'Kleinhans'
+const sarahName = 'Sarah  '
+const sarahSurname = 'Kleinhans  '
 const sarahBalance = '-4582.21000111'
 
 const divider = '----------------------------------'
 
 // Only change below this line
 
-const owed = parseInt('R', leoBalance + sarahBalance, 10); 
-            // if (isNaN(parsed) Request 0;)
+let leoOwes = parseFloat(leoBalance) * -1;
+let sarahOwes = parseFloat(sarahBalance) * -1;
 
-leo = {leoName, leoSurname} + owed + "R" + leoBalance;
-sarah = {sarahName, sarahSurname} + owed + "R" + {sarahBalance}
-total = 'Total amount owed:'
-const result = leo + sarah + total + owed + divider
+let owes = leoOwes + sarahOwes;
 
-console.log(result)
+const thousands = owes / 1000;
+const hundreds = owes % 1000;
+
+
+const leo = `${leoName} ${leoSurname .trim()} (Owed: R ${leoOwes.toFixed(2)})`
+const sarah = `${sarahName} ${sarahSurname .trim()} (Owed: R ${sarahOwes.toFixed(2)})`
+const total = `Total amount owed R:    ${thousands.toFixed(0)}${hundreds.toFixed(2)}`
+
+console.log('', leo, '\n', sarah, '\n', divider, '\n', '', total, '\n', divider)
