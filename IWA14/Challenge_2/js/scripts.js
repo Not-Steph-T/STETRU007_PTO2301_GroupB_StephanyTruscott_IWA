@@ -1,18 +1,16 @@
-function add(a, b, c) {
-  return a + b + c;
+function add(a, b) {
+  return a + b;
 }
 
-function multiply(a, b, c) {
-  return a * b * c;
+function multiply(a, b) {
+  return a * b;
 }
 
-function internal(a, b, c) {
-  add();
-  multiply();
+function internal() {
+  const added = this.add(this.internal.a, this.internal.b);
+  const multiplies = this.multiply(added, this.internal.c);
+  console.log(multiplies);
 }
-
-console.log(multiply(2, 4, 8));
-console.log(multiply(2, 2, 3));
 
 // Not allowed to change below this
 
