@@ -65,89 +65,51 @@ const data = {
 
 // Only edit below this comment
 
-const { NM372 } = data.response.data;
-const { SV782 } = data.response.data;
+const createHtml = (athlete) => {
+  const { firstName, surname, id, races } = data.response.data[athlete];
+  const [NewRace] = races.reverse(); //created NewRace
+  const { date, time } = NewRace;
 
-function timeConvert(sum) {
-  const hours = Math.floor(sum / 60);
-  const minutes = sum % 60;
-  return `${hours}${hours}:${minutes}`;
-}
+  const fragment = document.createDocumentFragment();
 
-// Nwabisa Data
-let date1 = data.response.data.NM372.races[1].date;
-let dateA = new Date(date1);
+  const title = document.createElement("h2"); //changed h2 to string
+  title.textContent = `${id}`;
+  fragment.appendChild(title);
 
-const nwabisaDate = `${dateA.getDate()} ${
-  MONTHS[dateA.getMonth()]
-} ${dateA.getFullYear()}`;
+  const list = document.createElement("dl");
 
-const nwabisaRace = data.response.data.NM372.races;
+  let day = new Date(date); //used new Date() to get the date
+  let month = MONTHS[day.getMonth()];
+  let year = day.getFullYear();
+  day = day.toLocaleString("en-US", { month: "short", day: "numeric" }); // used toLocaleString to edit the date format
 
-const nwabisaTimeArray = data.response.data.NM372.races[1].time;
-let nwabisaTime = 0;
+  const [first, second, third, fourth] = time;
+  const total = first + second + third + fourth;
 
-nwabisaTimeArray.forEach((num) => {
-  nwabisaTime += num;
-  return timeConvert(nwabisaTime);
-});
+  const hours = Math.floor(total / 60); //used Math.floor to round to whole number
+  const minutes = Math.floor(total + hours); //added total to hours to get latest time
 
-// Schalk Data
-let date2 = data.response.data.SV782.races[3].date;
-let dateB = new Date(date2);
+  //created interpolations
+  //length property to count the number of races
+  // fixed layout
+  list.innerHTML = /* html */ `    
+      <dt>Athlete: ${firstName} ${surname}</dt>
 
-const schalkDate = `${dateB.getDate()} ${
-  MONTHS[dateB.getMonth()]
-} ${dateB.getFullYear()}`;
+      <dt>Total Races: ${races.length}</dt>
+  
+      <dt>Event Date (Latest): ${day} ${month} ${year}</dt>
+  
+      <dt>Total Time (Latest): ${hours.toString().padStart(2, 0)}: ${minutes
+    .toString()
+    .padStart(2, 0)}</dt>
+    `;
 
-const schalkRace = data.response.data.SV782.races;
-
-const schalkTimeArray = data.response.data.SV782.races[3].time;
-let schalkTime = 0;
-
-schalkTimeArray.forEach((num) => {
-  schalkTime += num;
-  return timeConvert(schalkTime);
-});
-
-// Nwabisa HTML
-const nwabisaTitle = document.createElement("h2");
-nwabisaTitle.innerHTML = data.response.data.NM372.id;
-document.querySelector("section").appendChild(nwabisaTitle);
-
-const nwabisaList = document.createElement("dl");
-nwabisaList.innerHTML = `
-    <dt>Athlete</dt>
-    <dd>${NM372.firstName} ${NM372.surname}</dd>
-
-    <dt>Total Races</dt>
-    <dd>${nwabisaRace.length}</dd>
-
-    <dt>Event Date (Latest)</dt>
-    <dd>${nwabisaDate}</dd>
-
-    <dt>Total Time (Latest)</dt>
-    <dd>${timeConvert(nwabisaTime)}</dd>
-  `;
-document.querySelector("section").appendChild(nwabisaList);
-
-// Schalk HTML
-const schalkTitle = document.createElement("h2");
-schalkTitle.innerHTML = data.response.data.SV782.id;
-document.querySelector("section").appendChild(schalkTitle);
-
-const schalkLits = document.createElement("dl");
-schalkLits.innerHTML = `
-    <dt>Athlete</dt>
-    <dd>${SV782.firstName} ${SV782.surname}</dd>
-
-    <dt>Total Races</dt>
-    <dd>${schalkRace.length}</dd>
-
-    <dt>Event Date (Latest)</dt>
-    <dd>${schalkDate}</dd>
-
-    <dt>Total Time (Latest)</dt>
-    <dd>${timeConvert(schalkTime)}</dd>
-  `;
-document.querySelector("section").appendChild(schalkLits);
+  fragment.appendChild(list);
+  return fragment;
+};
+const NM372 = document
+  .querySelector("[data-athlete= 'NM372']")
+  .appendChild(createHtml("NM372"));
+const SV782 = document
+  .querySelector("[data-athlete= 'SV782'] ")
+  .appendChild(createHtml("SV782"));
