@@ -6,29 +6,22 @@ const data = {
   ],
 };
 
-// // Only edit below
+// Only edit below
 
 const first = data.lists[0][1];
 const second = data.lists[1][1];
 const third = data.lists[2][1];
 
-// console.log(first);
-// console.log(second);
-// console.log(third);
-
 const result = [];
-
-function extractBiggest() {
-  if (first.length > second.length) {
+const extractBiggest = () => {
+  if (first[first.length - 1] > second[second.length - 1]) {
     return first.pop();
+  } else {
+    return second.pop() || third.pop();
   }
-  if (second.length > third.length) {
-    return second.pop();
-  }
-  return third.pop();
-}
+};
 
-// // // Only edit above
+// Only edit above
 
 result.push(extractBiggest());
 result.push(extractBiggest());
