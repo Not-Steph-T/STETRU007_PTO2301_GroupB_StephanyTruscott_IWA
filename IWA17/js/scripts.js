@@ -18,122 +18,100 @@ const getDaysInMonth = (date) =>
 
 // Only edit below
 
-function createArray(length) {
+const createArray = (length) => {
   const result = [];
 
   for (let i = 0; i < length; i++) {
-    result.push();
+    result.push(i);
   }
   return result;
-}
-
-const current = new Date();
-// current.set(1);
-
-const startDay = current.getDate();
-const daysInMonth = getDaysInMonth(current);
-
-const weeks = createArray(5);
-const days = createArray(7);
-const result = [];
+};
 
 const createData = () => {
-  for (const weekIndex of weeks) {
-    result.push(`week: ${weekIndex + 1}`, `days: ${days}`);
+  const current = new Date();
+  current.setDate(1);
+
+  const startDay = current.getDay();
+  const daysInMonth = getDaysInMonth(current);
+
+  const weeks = createArray(5);
+  const days = createArray(7);
+  let value = null;
+
+  const result = [];
+
+  for (let weekIndex of weeks) {
+    value = {
+      week: weekIndex + 1,
+      days: [],
+    };
+
+    for (let dayIndex of days) {
+      const day = weekIndex * 7 + dayIndex + startDay - 1;
+      const isValid = day > 0 && day <= daysInMonth;
+
+      value.days.unshift({
+        dayOfWeek: dayIndex + 1,
+        value: (isValid && day) || "",
+      });
+    }
+    result.push(value);
   }
-
-  // for (let weekIndex = 0; weekIndex < weeks.length; weekIndex++) {
-  //   const result = weeks[weekIndex];
-  // }
-  // {
-  //   weeks.push(`week: ${weeks.length + 1}`, `days: ${days}`);
-  // }
-
-  for (const dayIndex of days) {
-    const day = dayIndex - startDay && weekIndex * 7 + 1;
-    const isValid = day > dayIndex && day <= daysInMonth;
-
-    result[weekIndex].days.push(
-      `dayOfWeek: ${dayIndex + 1}`,
-      `value: ${isValid ? day : " "}`
-    );
-  }
-
-  // for (let dayIndex = 0; dayIndex < days.length; dayIndex++) {
-  //   const result = days[dayIndex];
-  //   const day = dayIndex - startDay && weekIndex * 7 + 1;
-  //   const isValid = day > dayIndex && day <= daysInMonth;
-  //   {
-  //   }
-  //   days.push(`dayOfWeek: ${days.length + 1}`, `value: ${isValid ? day : ""}`);
-  // }
   return result;
 };
 
 const addCell = (existing, classString, value) => {
-  const result =
-    /* html */
-    `${inner}
-        <td class="${classString}">
-            &nbsp;${value}&nbsp
-        </td>`;
+  const result = /* html */ `
+        <td class= "${classString}">                      
+            ${value}
+        </td>
 
-  // `${existing} <th class="${classString}" > ${value}</td>`;
+        ${existing}
+    `;
   return result;
 };
 
 const createHtml = (data) => {
   let result = "";
 
-  for (const { week, days } of weeks) {
+  for (let week of data) {
     let inner = "";
-    document.querySelector("td").innerHTML = addCell(
+
+    for (let day of week.days) {
+      let classString = "table__cell";
+
+      const isToday = new Date().getDate() == day.value;
+      const isWeekend = day.dayOfWeek == 1 || day.dayOfWeek == 7;
+      const isAlternate = week / 2;
+
+      if (isToday) {
+        classString = `${classString} table__cell_today`;
+      }
+      if (isWeekend) {
+        classString = `${classString} table__cell_weekend`;
+      }
+      if (isAlternate) {
+        classString = `${classString} table__cell_alternate`;
+      }
+
+      inner = addCell(inner, classString, day.value);
+    }
+    inner = addCell(
       inner,
       "table__cell table__cell_sidebar",
-      `Week ${week}`
+      `Week ${week.week}`
     );
-  }
-
-  for (const { dayOfWeek, value } of days) {
-            const isToday = current.getDate() === value;
-            const isWeekend = dayOfWeek ===  | dayOfWeek === 
-            const isAlternate = week % 2 === 0
-            
-						let classString = 'table__cell'
-
-            if (isToday == 'true') { classString = `${} table__cell_`
-            if () classString = `${} table__cell_`
-            if () classString = `${} table__cell_`
-            inner = addCell()
-        }
-
-  for (const { dayOfWeek, value } of days) {
-    const isToday = current.getDate() === value;
-
-    const isWeekend = dayOfWeek === value || dayOfWeek !== value;
-    const isAlternate = week % 2;
-
-    let classString = "";
-
-    if ((classString = `${existing} table__cell_`))
-      if ((classString = `${classString} table__cell_`))
-        if ((classString = `${value} table__cell_`)) {
-          inner = addCell();
-        }
-
-    result = `
-            ${result}
-            <tr>${inner}</tr>
-        `;
+    result += `<tr>${inner}</tr>`;
   }
   return result;
 };
 
-const data = createData();
-// // Only edit above
+// Only edit above
 
-document.querySelector("h1").innerHTML = `${
+const current = new Date();
+document.querySelector("[data-title]").innerText = `${
   MONTHS[current.getMonth()]
 } ${current.getFullYear()}`;
 
-document.querySelector("tbody").innerHTML = createHtml(data);
+const data = createData();
+document.querySelector("[data-content]").innerHTML = createHtml(data);
