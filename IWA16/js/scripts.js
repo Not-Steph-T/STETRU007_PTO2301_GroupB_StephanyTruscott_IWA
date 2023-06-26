@@ -67,31 +67,28 @@ const data = {
 
 const createHtml = (athlete) => {
   const { firstName, surname, id, races } = data.response.data[athlete];
-  const [NewRace] = races.reverse(); //created NewRace
+  const [NewRace] = races.reverse();
   const { date, time } = NewRace;
 
   const fragment = document.createDocumentFragment();
 
-  const title = document.createElement("h2"); //changed h2 to string
+  const title = document.createElement("h2");
   title.textContent = `${id}`;
   fragment.appendChild(title);
 
   const list = document.createElement("dl");
 
-  let day = new Date(date); //used new Date() to get the date
+  let day = new Date(date);
   let month = MONTHS[day.getMonth()];
   let year = day.getFullYear();
-  day = day.toLocaleString("en-US", { month: "short", day: "numeric" }); // used toLocaleString to edit the date format
-
+  day = day.toLocaleString("en-US", { month: "short", day: "numeric" });
   const [first, second, third, fourth] = time;
   const total = first + second + third + fourth;
 
-  const hours = Math.floor(total / 60); //used Math.floor to round to whole number
-  const minutes = Math.floor(total + hours); //added total to hours to get latest time
+  const hours = Math.floor(total / 60);
+  const minutes = Math.floor(total + hours); 
 
-  //created interpolations
-  //length property to count the number of races
-  // fixed layout
+
   list.innerHTML = /* html */ `    
       <dt>Athlete: ${firstName} ${surname}</dt>
 
