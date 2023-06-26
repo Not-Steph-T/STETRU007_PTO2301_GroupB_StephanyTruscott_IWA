@@ -1,11 +1,4 @@
 /**
- * A handler that fires when a user drags over any element inside a column. In
- * order to determine which column the user is dragging over the entire event
- * bubble path is checked with `event.path` (or `event.composedPath()` for
- * browsers that don't support `event.path`). The bubbling path is looped over
- * until an element with a `data-area` attribute is found. Once found both the
- * active dragging column is set in the `state` object in "data.js" and the HTML
- * is updated to reflect the new column.
  *
  * @param {Event} event
  */
@@ -31,10 +24,6 @@ const handleDragStart = (event) => {};
 
 const handleDragEnd = (event) => {};
 
-/**
- * opens the "?" button and closes it when clicked on the "close" button
- *
- */
 const handleHelpToggle = (event) => {
   const { target } = event;
   if (target == html.other.help) {
@@ -45,10 +34,6 @@ const handleHelpToggle = (event) => {
   }
 };
 
-/**
- * when clicked on "Add Order" opens it.
- * closes it when clicked on "cancel"
- */
 const handleAddToggle = (event) => {
   const { target } = event;
   if (target == html.other.add) {
@@ -59,10 +44,6 @@ const handleAddToggle = (event) => {
   }
 };
 
-/**
- * when user submits order, collects the info typed in and pushes it to the ordered column
- *
- */
 const handleAddSubmit = (event) => {
   event.preventDefault();
   const data = {
@@ -78,10 +59,6 @@ const handleAddSubmit = (event) => {
   handleAddToggle();
 };
 
-/**
- *
- * alows you to click in data extracted and re edit it to be updated in the eirther column
- */
 const handleEditToggle = (event) => {
   const { target } = event;
   const opened = document.querySelector(".order");
